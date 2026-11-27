@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Projet PHP – ToDo List : guide des étapes</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  body{font-family:Calibri,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.55;color:#222;max-width:900px;margin:0 auto;padding:40px 24px 80px;background:#fff}
+  h1{color:#1F3864;font-size:2em;margin:0 0 .8em}
+  h2{color:#1F3864;font-size:1.45em;margin:2em 0 .6em;padding-bottom:.2em;border-bottom:2px solid #D9E2F3}
+  h3{color:#2E5597;font-size:1.15em;margin:1.5em 0 .5em}
+  a{color:#2E5597}
+  table{border-collapse:collapse;width:100%;table-layout:auto;margin:1em 0;font-size:.93em}
+  th,td{border:1px solid #8EA9DB;padding:6px 9px;vertical-align:top;text-align:left}
+  th{background:#D9E2F3}
+table{table-layout:auto}
+th:first-child,td:first-child{white-space:nowrap;width:1%}
+  code{font-family:Consolas,monospace;background:#F2F4F8;padding:1px 4px;border-radius:3px;font-size:.92em}
+  li{margin:.25em 0}
+  </style>
+</head>
+<body>
+<h1 id="projet-php-todo-list-guide-des-étapes">Projet PHP – ToDo List :
+guide des étapes</h1>
+<h2 id="comment-utiliser-ce-guide">Comment utiliser ce guide</h2>
+<p>Le projet se construit en 7 étapes, dans l’ordre. Chaque étape ajoute
+une partie de l’application et se termine par une version qui
+fonctionne, envoyée sur GitHub.</p>
+<p>Le guide ne donne pas de code : il dit quoi construire, quelles
+fonctionnalités (F) et quelles règles de sécurité (S) du cahier des
+charges sont concernées, et comment vérifier que c’est terminé. Les
+exemples des chapitres 6 à 8 du cours (ajout.php, connexion.php,
+admin.php, la fiche d’un livre) servent de modèle.</p>
+<p>Chaque étape suit la même démarche :</p>
+<ol type="1">
+<li><strong>Lire</strong> l’objectif et les fonctionnalités concernées
+dans le cahier des charges.</li>
+<li><strong>Décider</strong> où ranger chaque morceau de code, avant
+d’écrire : quelle page, quelle fonction, quel fichier.</li>
+<li><strong>Construire</strong>, seul ou avec l’aide de l’IA.</li>
+<li><strong>Vérifier</strong> chaque point de la liste « C’est terminé
+quand », dans le navigateur.</li>
+<li><strong>Répondre</strong> aux questions de l’étape dans le dossier
+de compréhension.</li>
+<li><strong>Envoyer</strong> la version sur GitHub, avec un commit qui
+décrit l’étape.</li>
+</ol>
+<h2 id="étape-1-mise-en-place">Étape 1 – Mise en place</h2>
+<p>À la fin de cette étape, le projet est sur GitHub, la base existe
+avec ses données de test, et une page d’accueil vide s’affiche avec le
+gabarit commun. Aucune fonctionnalité n’est encore visible.</p>
+<p><strong>Concerné</strong> : base de données, attentes techniques
+(démarrage commun, gabarit, connexion à la base, erreurs), Git.</p>
+<p><strong>À construire</strong></p>
+<ul>
+<li>Le dépôt GitHub public, cloné sur votre poste. Communiquez son lien
+dès maintenant.</li>
+<li>Le schéma de la base (les 3 tables et leurs liens), puis le script
+SQL : création des tables et données de test.</li>
+<li>La structure des dossiers : les pages à la racine du projet, un
+dossier pour les fichiers inclus (fonctions, connexion, gabarit), un
+dossier pour le CSS.</li>
+<li>Le fichier de connexion à la base, sur le modèle de
+connexion-bdd.php (cours, 8.1). C’est le seul fichier qui crée l’objet
+PDO.</li>
+<li>Dans ce fichier, la création de la connexion dans un try / catch
+(cours, 8.5) : en cas d’échec, le détail va dans le journal avec
+error_log(), et le visiteur voit un message neutre.</li>
+<li>Le fichier de démarrage commun, inclus en haut de chaque page : il
+démarre la session, désactive l’affichage des erreurs (ini_set), charge
+le fichier de fonctions et le fichier de connexion.</li>
+<li>Le gabarit commun (en-tête avec le menu, pied de page) et une
+première page d’accueil vide qui les inclut.</li>
+<li>Un premier README.md (en Markdown, voir le cahier des charges) : le
+but du projet et les étapes d’installation.</li>
+</ul>
+<p><strong>C’est terminé quand</strong></p>
+<ul>
+<li>le script SQL, importé dans phpMyAdmin sur une base vide, crée les 3
+tables et leurs données sans erreur ;</li>
+<li>l’accueil s’affiche avec le gabarit commun ;</li>
+<li>un mauvais mot de passe dans le fichier de connexion affiche un
+message neutre, et le détail de l’erreur est dans le journal des erreurs
+PHP (icône WampServer, menu PHP, journal des erreurs). Remettez ensuite
+le bon mot de passe ;</li>
+</ul>
+<p><strong>Commit</strong> : « Étape 1 : mise en place du projet ».</p>
+<h2 id="étape-2-les-comptes">Étape 2 – Les comptes</h2>
+<p>À la fin de cette étape, un visiteur peut créer un compte, se
+connecter et se déconnecter, et les pages réservées le renvoient vers la
+connexion. Tout le reste de l’application en dépend : chaque liste
+appartient à un utilisateur.</p>
+<p><strong>Concerné</strong> : F1, F2, F11 ; S3, S4, S5, S7, S8.</p>
+<p><strong>À construire</strong></p>
+<ul>
+<li>Les fonctions de requêtes sur la table utilisateur : chercher un
+utilisateur par son identifiant, ajouter un utilisateur. Une fonction ne
+voit pas les variables de la page (cours, 5.4) : elle reçoit l’objet PDO
+en paramètre.</li>
+<li>Les pages d’inscription, de connexion et de déconnexion, sur le
+modèle du cours (7.3).</li>
+<li>La vérification des saisies de l’inscription : identifiant non vide
+et pas déjà pris, mot de passe d’au moins 8 caractères (strlen() donne
+la longueur d’une chaîne).</li>
+<li>Les fonctions utilitaires : échapper un texte (htmlspecialchars),
+savoir qui est connecté, réserver une page (redirection puis exit),
+ranger un message dans la session, puis l’afficher une seule fois sur la
+page suivante et le retirer de la session.</li>
+<li>Le menu du gabarit, qui change selon que l’utilisateur est connecté
+ou non.</li>
+</ul>
+<p><strong>C’est terminé quand</strong></p>
+<ul>
+<li>une inscription avec un identifiant déjà pris, ou un mot de passe de
+moins de 8 caractères, est refusée avec un message clair, et les saisies
+sont conservées ;</li>
+<li>dans phpMyAdmin, la colonne mdp_hash contient une longue empreinte,
+jamais le mot de passe en clair ;</li>
+<li>un identifiant inconnu et un mauvais mot de passe donnent exactement
+le même message ;</li>
+<li>une fois connecté, le nom de l’utilisateur apparaît dans le menu ;
+après la déconnexion, il disparaît ;</li>
+<li>une page réservée, ouverte sans être connecté, redirige vers la
+connexion avec un message ;</li>
+<li>après une inscription réussie, actualiser la page (F5) ne crée pas
+un second compte.</li>
+</ul>
+<p><strong>Commit</strong> : « Étape 2 : inscription et connexion ».</p>
+<h2 id="étape-3-lire-les-listes-et-les-tâches">Étape 3 – Lire les listes
+et les tâches</h2>
+<p>À la fin de cette étape, un utilisateur connecté voit ses listes et
+le contenu de chacune, à partir des données de test. Il ne peut encore
+rien modifier.</p>
+<p><strong>Concerné</strong> : F3, F5 (sans les filtres), F10 ; S1, S2,
+S5, S6.</p>
+<p><strong>À construire</strong></p>
+<ul>
+<li>Les fonctions de requêtes sur les listes et les tâches :
+<ul>
+<li>les listes d’un utilisateur, avec pour chacune son nombre de tâches
+et de tâches terminées (LEFT JOIN, COUNT, GROUP BY) ;</li>
+<li>une liste, à partir de son identifiant et de celui de l’utilisateur
+connecté : la requête ne renvoie la liste que si sa colonne
+utilisateur_id est celle de l’utilisateur connecté (lu dans la session).
+Sinon, fetch() renvoie false ;</li>
+<li>les tâches d’une liste.</li>
+</ul></li>
+<li>Les libellés du statut et de la priorité : les valeurs autorisées et
+leur libellé (« En cours » pour en_cours) sont définis une seule fois,
+dans le fichier de fonctions (un tableau associatif, par exemple).</li>
+<li>La page « Mes listes » et la page d’une liste.</li>
+<li>La page « introuvable » : code 404 avec http_response_code(), comme
+pour la fiche d’un livre (cours, 8.3), mais avec le gabarit commun.</li>
+</ul>
+<p><strong>C’est terminé quand</strong></p>
+<ul>
+<li>connecté avec le premier compte de test, « Mes listes » affiche
+uniquement ses listes, avec le nombre de tâches et le pourcentage
+d’avancement de chacune ;</li>
+<li>la page d’une liste affiche ses tâches, avec leur statut et leur
+priorité en clair (« En cours », et non en_cours) ;</li>
+<li>l’identifiant d’une liste inexistante dans l’adresse affiche la page
+« introuvable », avec le code 404 (visible dans l’onglet Réseau de F12)
+;</li>
+<li>l’identifiant d’une liste du second compte de test affiche aussi la
+page « introuvable », et non son contenu ;</li>
+<li>une tâche dont le titre contient &lt;b&gt;test&lt;/b&gt; s’affiche
+tel quel, sans texte en gras.</li>
+</ul>
+<p><strong>Commit</strong> : « Étape 3 : consultation des listes et des
+tâches ».</p>
+<h2 id="étape-4-créer-modifier-supprimer">Étape 4 – Créer, modifier,
+supprimer</h2>
+<p>À la fin de cette étape, l’utilisateur gère entièrement ses listes et
+ses tâches. C’est l’étape la plus longue : commencez par les listes,
+puis passez aux tâches.</p>
+<p><strong>Concerné</strong> : F4, F6, F7, F8, F11 ; S1, S6, S7, S8,
+S9.</p>
+<p><strong>À construire</strong></p>
+<ul>
+<li>Les fonctions de requêtes : ajouter, renommer et supprimer une liste
+; ajouter et supprimer une tâche, changer son statut. Pour une tâche,
+l’appartenance se vérifie par sa liste (jointure entre tache et
+liste).</li>
+<li>Une page par action. Chaque page vérifie que l’utilisateur est
+connecté, que la requête est en POST, que les saisies sont valides et
+que la liste ou la tâche lui appartient. Elle range ensuite un message,
+puis redirige (cours, 6.4).</li>
+<li>Pour une priorité ou un statut reçu : on vérifie qu’elle fait partie
+des valeurs autorisées définies à l’étape 3 (avec isset sur le tableau
+des libellés, ou avec in_array).</li>
+<li>Les formulaires : création et renommage d’une liste, ajout d’une
+tâche (avec les erreurs au-dessus du formulaire et les saisies
+conservées), et des boutons de suppression et de changement de statut
+dans la page d’une liste. Ces boutons sont de petits formulaires en
+POST, avec l’identifiant dans un champ caché.</li>
+</ul>
+<p><strong>C’est terminé quand</strong></p>
+<ul>
+<li>chaque opération fonctionne et affiche un message de confirmation
+;</li>
+<li>un titre vide ou une priorité inconnue (modifiée avec F12) est
+refusé, avec un message clair ;</li>
+<li>supprimer une liste supprime aussi ses tâches (vérifiez dans
+phpMyAdmin) ;</li>
+<li>après chaque opération, actualiser la page (F5) ne la refait pas
+;</li>
+<li>aucune suppression ni modification ne se déclenche en ouvrant
+simplement une adresse dans le navigateur ;</li>
+<li>en changeant avec F12 l’identifiant caché d’un formulaire pour celui
+d’une tâche d’un autre utilisateur, l’opération est refusée.</li>
+</ul>
+<p><strong>Commit</strong> : un commit pour les listes, un autre pour
+les tâches.</p>
+<h2 id="étape-5-filtres-recherche-et-tri">Étape 5 – Filtres, recherche
+et tri</h2>
+<p>À la fin de cette étape, la page d’une liste permet de filtrer les
+tâches par statut et par priorité, de chercher dans leur titre et de les
+trier. Les tâches sont lues avec la requête de l’étape 3, puis filtrées
+et triées en PHP avec les fonctions du cours : array_filter pour
+filtrer, usort pour trier, match pour choisir le tri (cours, 3.4 et
+4.1). Pour la recherche, str_contains($titre, $mot) renvoie true si le
+mot est dans le titre (includes en JavaScript).</p>
+<p><strong>Concerné</strong> : F5 ; S2, S8.</p>
+<p><strong>À construire</strong></p>
+<ul>
+<li>Une fonction qui reçoit les tâches et les choix (statut, priorité,
+mot-clé, tri), et renvoie les tâches filtrées et triées. À vous de
+décider dans quel fichier la ranger.</li>
+<li>Dans la partie traitement de la page d’une liste : la lecture des
+choix dans l’adresse ($_GET), et l’appel de cette fonction.</li>
+<li>Dans la partie affichage : le formulaire des filtres, en GET, qui
+réaffiche les choix faits.</li>
+</ul>
+<p><strong>C’est terminé quand</strong></p>
+<ul>
+<li>chaque filtre fonctionne seul, et tous fonctionnent ensemble ;</li>
+<li>après le filtrage, le formulaire affiche encore les choix faits, y
+compris le mot-clé ;</li>
+<li>l’adresse contient les choix (par exemple
+?id=1&amp;statut=en_cours&amp;tri=echeance), et la recopier dans un
+autre onglet donne le même résultat ;</li>
+<li>une recherche sans résultat affiche un message « Aucune tâche », et
+non un tableau vide ;</li>
+<li>une valeur de tri inconnue, tapée dans l’adresse, ne provoque aucune
+erreur : le tri par défaut s’applique.</li>
+</ul>
+<p><strong>Commit</strong> : « Étape 5 : filtres, recherche et tri
+».</p>
+<h2 id="étape-6-tableau-de-bord">Étape 6 – Tableau de bord</h2>
+<p>À la fin de cette étape, l’accueil d’un utilisateur connecté résume
+ses tâches en quelques chiffres, calculés par la base.</p>
+<p><strong>Concerné</strong> : F9 ; S1, S6.</p>
+<p><strong>À construire</strong></p>
+<ul>
+<li>Les fonctions de requêtes qui calculent les chiffres du tableau de
+bord avec SQL (COUNT, GROUP BY, et ORDER BY avec LIMIT pour les 5
+prochaines tâches).</li>
+<li>La page d’accueil d’un utilisateur connecté, avec ces chiffres.
+L’accueil d’un visiteur reste une simple page de présentation.</li>
+</ul>
+<p><strong>C’est terminé quand</strong></p>
+<ul>
+<li>les chiffres du tableau de bord correspondent à ce que vous comptez
+à la main dans phpMyAdmin pour un compte de test ;</li>
+<li>les 5 prochaines tâches ne contiennent ni tâche terminée, ni tâche
+sans échéance ;</li>
+</ul>
+<p><strong>Commit</strong> : « Étape 6 : tableau de bord ».</p>
+<h2 id="étape-7-relecture-de-sécurité-et-finalisation">Étape 7 –
+Relecture de sécurité et finalisation</h2>
+<p>À la fin de cette étape, chaque règle de sécurité a été vérifiée dans
+le code, le dossier de compréhension est complet, et le projet
+s’installe sur un autre poste en suivant le README.</p>
+<p><strong>Concerné</strong> : S1 à S10, Git et livrables.</p>
+<p><strong>À faire</strong></p>
+<ul>
+<li>Relire tout le code, règle par règle (S1 à S10). Pour chaque règle,
+notez dans le dossier l’endroit exact où elle est appliquée : le
+fichier, la fonction, la ligne.</li>
+<li>Chercher les oublis : une requête qui colle une variable dans le
+SQL, une donnée affichée sans échappement, une page réservée sans
+vérification de la session, une action qui ne vérifie pas le
+propriétaire, un formulaire qui modifie la base en GET, une requête SQL
+écrite dans une page.</li>
+<li>Supprimer le code mort, les fichiers de test et les var_dump()
+oubliés.</li>
+<li>Compléter le README : installation pas à pas, comptes de test.</li>
+</ul>
+<p><strong>C’est terminé quand</strong></p>
+<ul>
+<li>chaque ligne du tableau de sécurité du dossier indique où la règle
+est appliquée, et ce qui se passerait sans elle ;</li>
+<li>quelqu’un d’autre, sur un autre poste, installe le projet en suivant
+uniquement le README, de git clone jusqu’à la connexion avec un compte
+de test ;</li>
+<li>toutes les fonctionnalités F1 à F11 ont été vérifiées une dernière
+fois, sur cette installation neuve ;</li>
+<li>la dernière version est sur GitHub.</li>
+</ul>
+<p><strong>Commit</strong> : « Étape 7 : relecture de sécurité et
+finalisation ».</p>
+</body>
+</html>

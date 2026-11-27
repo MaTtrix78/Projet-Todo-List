@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Projet PHP – ToDo List : cahier des charges</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  body{font-family:Calibri,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.55;color:#222;max-width:900px;margin:0 auto;padding:40px 24px 80px;background:#fff}
+  h1{color:#1F3864;font-size:2em;margin:0 0 .8em}
+  h2{color:#1F3864;font-size:1.45em;margin:2em 0 .6em;padding-bottom:.2em;border-bottom:2px solid #D9E2F3}
+  h3{color:#2E5597;font-size:1.15em;margin:1.5em 0 .5em}
+  a{color:#2E5597}
+  table{border-collapse:collapse;width:100%;table-layout:auto;margin:1em 0;font-size:.93em}
+  th,td{border:1px solid #8EA9DB;padding:6px 9px;vertical-align:top;text-align:left}
+  th{background:#D9E2F3}
+table{table-layout:auto}
+th:first-child,td:first-child{white-space:nowrap;width:1%}
+  code{font-family:Consolas,monospace;background:#F2F4F8;padding:1px 4px;border-radius:3px;font-size:.92em}
+  li{margin:.25em 0}
+  </style>
+</head>
+<body>
+<h1 id="projet-php-todo-list-cahier-des-charges">Projet PHP – ToDo List
+: cahier des charges</h1>
+<h2 id="présentation-du-projet">Présentation du projet</h2>
+<p>Vous réalisez une application web de gestion de tâches (une to-do
+list) en PHP, avec une base de données MySQL. Chaque utilisateur se
+connecte, puis gère ses propres listes de tâches.</p>
+<p><strong>Voici un exemple de ce qui est attendu</strong> : <a href="https://slam-sio2.alwaysdata.net/todo-list/" target="_blank" rel="noopener"
+class="uri">https://slam-sio2.alwaysdata.net/todo-list/</a>. Pour
+l’essayer, connectez-vous avec le compte de test alice (mot de passe
+Alice2026!). Votre application peut avoir une apparence différente : ce
+sont les fonctionnalités et les règles de ce document qui comptent.</p>
+<p>Le projet met en pratique les chapitres 1 à 8 du cours PHP :
+tableaux, fonctions, formulaires, sessions et PDO. Le nom des fichiers
+et l’apparence sont libres, tant qu’ils respectent les attentes de ce
+document.</p>
+<p>C’est la première partie d’un projet en deux temps. Dans la partie 2,
+vous transformerez cette même application en architecture MVC. Un code
+bien rangé dès maintenant rendra ce passage beaucoup plus simple.</p>
+<p>L’objectif est avant tout la compréhension : vous devez pouvoir
+expliquer le rôle de chaque fichier, le trajet d’une requête dans votre
+application et chacun de vos choix de sécurité.</p>
+<h2 id="organisation">Organisation</h2>
+<p>Le projet avance par étapes, décrites dans le guide des étapes.
+Chaque étape se termine par une version qui fonctionne, enregistrée avec
+Git.</p>
+<p>L’usage de l’IA est autorisé pour écrire du code. Vous restez
+responsable de tout le code rendu : chaque ligne doit pouvoir être
+expliquée, modifiée et justifiée. Un code que vous ne savez pas
+expliquer compte comme un code que vous n’avez pas compris.</p>
+<p>Tout au long du projet, vous remplissez un dossier de compréhension :
+la carte de votre application, le suivi pas à pas de deux requêtes, et
+le tableau des règles de sécurité appliquées.</p>
+<h2 id="attentes-fonctionnelles">Attentes fonctionnelles</h2>
+<p>L’application compte 11 fonctionnalités, toutes obligatoires. Une
+fonctionnalité est validée quand tous ses critères sont vérifiés dans le
+navigateur.</p>
+<table>
+<thead>
+<tr class="header">
+<th>N°</th>
+<th>Fonctionnalité</th>
+<th>Critères de validation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>F1</td>
+<td>Inscription</td>
+<td>Un visiteur crée un compte avec un identifiant et un mot de passe.
+L’identifiant est unique. Le mot de passe fait au moins 8 caractères.
+Les erreurs s’affichent au-dessus du formulaire, et les saisies sont
+conservées.</td>
+</tr>
+<tr class="even">
+<td>F2</td>
+<td>Connexion et déconnexion</td>
+<td>Un utilisateur se connecte avec son identifiant et son mot de passe.
+Un identifiant inconnu et un mot de passe faux donnent le même message.
+Le nom de l’utilisateur connecté apparaît sur toutes les pages. La
+déconnexion ramène à l’accueil.</td>
+</tr>
+<tr class="odd">
+<td>F3</td>
+<td>Mes listes</td>
+<td>L’utilisateur voit uniquement ses listes, avec pour chacune son nom,
+son nombre de tâches et son pourcentage de tâches terminées.</td>
+</tr>
+<tr class="even">
+<td>F4</td>
+<td>Gérer une liste</td>
+<td>L’utilisateur crée, renomme et supprime une liste. Le nom est
+obligatoire. Supprimer une liste supprime aussi ses tâches.</td>
+</tr>
+<tr class="odd">
+<td>F5</td>
+<td>Consulter une liste</td>
+<td>La page d’une liste affiche ses tâches, avec un filtre par statut,
+un filtre par priorité, une recherche dans le titre et un tri (titre,
+échéance, date de création). Les choix restent affichés après le
+filtrage.</td>
+</tr>
+<tr class="even">
+<td>F6</td>
+<td>Ajouter une tâche</td>
+<td>Une tâche a un titre (obligatoire), une description et une échéance
+(facultatives), une priorité (basse, normale ou haute) et un statut (à
+faire par défaut).</td>
+</tr>
+<tr class="odd">
+<td>F7</td>
+<td>Changer le statut d’une tâche</td>
+<td>Depuis la page d’une liste, l’utilisateur change le statut d’une
+tâche (à faire, en cours, terminée).</td>
+</tr>
+<tr class="even">
+<td>F8</td>
+<td>Supprimer une tâche</td>
+<td>L’utilisateur supprime une tâche depuis la liste.</td>
+</tr>
+<tr class="odd">
+<td>F9</td>
+<td>Tableau de bord</td>
+<td>L’accueil d’un utilisateur connecté affiche : son nombre de listes,
+son nombre de tâches par statut, et ses 5 prochaines tâches non
+terminées, classées par échéance. Ces chiffres sont calculés par la
+base.</td>
+</tr>
+<tr class="even">
+<td>F10</td>
+<td>Page introuvable</td>
+<td>Une liste ou une tâche qui n’existe pas, ou qui appartient à un
+autre utilisateur, affiche une page « introuvable » avec le code HTTP
+404.</td>
+</tr>
+<tr class="odd">
+<td>F11</td>
+<td>Messages</td>
+<td>Après chaque action (ajout, changement de statut, suppression,
+connexion), un message confirme ce qui a été fait, ou explique
+l’erreur.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="attentes-techniques">Attentes techniques</h2>
+<p>L’organisation du code est libre, mais elle doit respecter les points
+suivants. Chacun sera vérifié dans le code.</p>
+<ul>
+<li><strong>Une page par écran ou par action</strong> : chaque page de
+l’application est un fichier PHP (par exemple la page d’une liste,
+l’ajout d’une tâche, la suppression d’une tâche).</li>
+<li><strong>Traitement, puis affichage</strong> : chaque page commence
+par le traitement en PHP (vérifier la connexion, lire et vérifier les
+saisies, appeler les fonctions, rediriger), et se termine par
+l’affichage en HTML. Aucun traitement au milieu du HTML : l’affichage
+utilise seulement des variables préparées au-dessus, des boucles et des
+conditions.</li>
+<li><strong>Les requêtes SQL dans des fonctions</strong> : toutes les
+requêtes sont écrites dans des fonctions, regroupées dans un fichier
+dédié. Ces fonctions reçoivent l’objet PDO en paramètre. Aucune requête
+SQL n’est écrite dans une page.</li>
+<li><strong>Les autres fonctions dans un fichier de fonctions</strong> :
+échappement, vérification de la connexion, messages, libellés du statut
+et de la priorité. Aucune fonction n’est recopiée dans plusieurs
+pages.</li>
+<li><strong>Un démarrage commun</strong> : un fichier inclus en haut de
+chaque page démarre la session, désactive l’affichage des erreurs,
+charge les fichiers de fonctions et crée la connexion à la base.</li>
+<li><strong>Gabarit commun</strong> : l’en-tête, le menu et le pied de
+page sont écrits une seule fois, dans des fichiers inclus par chaque
+page.</li>
+<li><strong>PHP</strong> : PHP 8.2 ou plus, declare(strict_types=1) dans
+chaque fichier, paramètres et retours des fonctions typés.</li>
+<li><strong>PDO</strong> : une seule connexion, en mode exceptions, avec
+les lignes lues sous forme de tableaux associatifs.</li>
+<li><strong>Erreurs</strong> : une erreur de connexion à la base est
+écrite dans le journal des erreurs, et le visiteur voit seulement un
+message neutre. Les erreurs PHP ne sont jamais affichées.</li>
+</ul>
+<h2 id="attentes-de-sécurité">Attentes de sécurité</h2>
+<p>Les 10 règles suivantes sont obligatoires. Dans le dossier de
+compréhension, vous indiquerez pour chacune où elle est appliquée dans
+votre code, et ce qui se passerait sans elle.</p>
+<table>
+<thead>
+<tr class="header">
+<th>N°</th>
+<th>Règle</th>
+<th>Ce qu’elle empêche</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S1</td>
+<td>Toute valeur variable d’une requête SQL passe par un marqueur
+(requête préparée).</td>
+<td>L’injection SQL</td>
+</tr>
+<tr class="even">
+<td>S2</td>
+<td>Toute donnée affichée qui vient de la base ou de l’utilisateur est
+échappée.</td>
+<td>La faille XSS</td>
+</tr>
+<tr class="odd">
+<td>S3</td>
+<td>Les mots de passe sont enregistrés avec password_hash() et vérifiés
+avec password_verify().</td>
+<td>La lecture des mots de passe en cas de vol de la base</td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td>L’identifiant de session est renouvelé à la connexion. La session ne
+contient jamais le mot de passe.</td>
+<td>Le vol de session</td>
+</tr>
+<tr class="odd">
+<td>S5</td>
+<td>Chaque page réservée vérifie elle-même la session, redirige un
+visiteur non connecté, et le script s’arrête après la redirection.</td>
+<td>L’accès sans compte</td>
+</tr>
+<tr class="even">
+<td>S6</td>
+<td>Chaque lecture, modification ou suppression d’une liste ou d’une
+tâche vérifie qu’elle appartient à l’utilisateur connecté.</td>
+<td>La consultation ou la modification des données d’un autre
+utilisateur, en changeant un identifiant dans l’adresse</td>
+</tr>
+<tr class="odd">
+<td>S7</td>
+<td>Toute action qui modifie la base passe par un formulaire en POST,
+suivi d’une redirection.</td>
+<td>Les modifications déclenchées par un simple lien, et le double envoi
+par actualisation de la page</td>
+</tr>
+<tr class="even">
+<td>S8</td>
+<td>Toutes les saisies sont vérifiées côté serveur : champs
+obligatoires, longueur du mot de passe, valeurs autorisées (statut,
+priorité).</td>
+<td>Les valeurs modifiées dans le navigateur (F12) ou envoyées sans
+formulaire</td>
+</tr>
+<tr class="odd">
+<td>S9</td>
+<td>Ce qui doit être fiable est décidé côté serveur : le propriétaire
+d’une liste vient de la session, jamais d’un champ du formulaire.</td>
+<td>L’usurpation, par un champ caché modifié</td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td>Aucun détail technique (message d’erreur SQL, chemin de fichier)
+n’est affiché au visiteur.</td>
+<td>La fuite d’informations utiles à un attaquant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="base-de-données">Base de données</h2>
+<p>La base compte au minimum trois tables : un utilisateur possède
+plusieurs listes, et une liste contient plusieurs tâches. Vous pouvez
+ajouter des colonnes ou des tables, à condition de les justifier. Cette
+base servira telle quelle dans la partie 2.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Table</th>
+<th>Colonnes minimales</th>
+<th>Règles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>utilisateur</td>
+<td>id, identifiant, mdp_hash, date d’inscription</td>
+<td>identifiant unique</td>
+</tr>
+<tr class="even">
+<td>liste</td>
+<td>id, nom, utilisateur_id, date de création</td>
+<td>clé étrangère vers utilisateur</td>
+</tr>
+<tr class="odd">
+<td>tache</td>
+<td>id, liste_id, titre, description, priorite, statut, echeance, date
+de création</td>
+<td>clé étrangère vers liste, avec suppression en cascade ; description
+et échéance peuvent être vides (NULL) ; priorité et statut limités à
+leurs valeurs autorisées</td>
+</tr>
+</tbody>
+</table>
+<p>Le projet fournit un script SQL qui crée la base, puis la remplit
+avec des données de test : au moins 2 utilisateurs, 3 listes et 15
+tâches, avec tous les statuts et toutes les priorités représentés, pour
+que chaque fonctionnalité puisse être essayée dès l’installation. Les
+mots de passe de test figurent dans le README.</p>
+<h2 id="git-et-livrables">Git et livrables</h2>
+<p>Le projet est versionné avec Git et déposé sur GitHub, dans un dépôt
+public. Son historique montre l’avancement du travail, étape par étape.
+Le même dépôt servira pour la partie 2.</p>
+<ul>
+<li><strong>Dépôt GitHub</strong> : créé dès la première étape, en
+public. Son lien est communiqué dès sa création.</li>
+<li><strong>Envoi régulier</strong> : le travail est envoyé sur GitHub
+(git push) au moins à la fin de chaque séance et à la fin de chaque
+étape du guide.</li>
+<li><strong>Commits</strong> : au moins un commit par étape, avec un
+message qui dit ce qui a été fait (« Ajout du filtre par statut », et
+non « modifs »).</li>
+</ul>
+<p>À la fin de la partie 1, le dépôt contient :</p>
+<ol type="1">
+<li>le code de l’application ;</li>
+<li>le script SQL de création et de données de test ;</li>
+<li>un fichier README.md qui explique l’installation pas à pas et donne
+les comptes de test ;</li>
+<li>le dossier de compréhension complété.</li>
+</ol>
+<p>Le README est écrit en Markdown : un fichier texte que GitHub affiche
+mis en forme sur la page du dépôt. Quelques repères suffisent :
+<code># Titre</code> pour un titre (<code>##</code> pour un sous-titre),
+<code>-</code> en début de ligne pour une liste, <code>**mot**</code>
+pour du gras, et les commandes entourées de trois accents graves
+(<code>```</code>) pour les afficher comme du code.</p>
+</body>
+</html>
